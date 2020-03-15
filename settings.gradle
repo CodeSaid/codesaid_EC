@@ -1,0 +1,2 @@
+include ':app', ':lib-annotations', ':lib_compiler', ':lib_ec', ':lib_core'
+rootProject.name='codesaid_EC'
