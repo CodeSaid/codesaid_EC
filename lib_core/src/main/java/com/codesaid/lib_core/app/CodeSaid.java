@@ -2,7 +2,7 @@ package com.codesaid.lib_core.app;
 
 import android.content.Context;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 /**
  * Created By codesaid
@@ -17,7 +17,11 @@ public final class CodeSaid {
         return Configurator.getInstance();
     }
 
-    private static WeakHashMap<String, Object> getConfigurations() {
+    private static HashMap<String, Object> getConfigurations() {
         return Configurator.getInstance().getCodesaidConfigs();
+    }
+
+    public static Context getApplication() {
+        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
     }
 }
