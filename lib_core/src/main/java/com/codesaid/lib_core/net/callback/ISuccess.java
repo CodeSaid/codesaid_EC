@@ -7,5 +7,5 @@ package com.codesaid.lib_core.net.callback;
  * desc:
  */
 public interface ISuccess {
-    void onSuccess();
+    void onSuccess(String response);
 }

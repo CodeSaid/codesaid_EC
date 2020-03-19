@@ -8,5 +8,5 @@ package com.codesaid.lib_core.net.callback;
  */
 public interface IFailure {
 
-    void onFailiure();
+    void onFailure();
 }
