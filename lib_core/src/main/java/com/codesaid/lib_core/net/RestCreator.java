@@ -3,6 +3,7 @@ package com.codesaid.lib_core.net;
 import com.codesaid.lib_core.app.CodeSaid;
 import com.codesaid.lib_core.app.ConfigType;
 
+import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -16,6 +17,15 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * desc:
  */
 public class RestCreator {
+
+
+    private static final class ParamsHolder {
+        public static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
+    }
+
+    public static WeakHashMap<String, Object> getParams() {
+        return ParamsHolder.PARAMS;
+    }
 
     public static RestService getRestService() {
         return RestServiceHolder.REST_SERVICE;
