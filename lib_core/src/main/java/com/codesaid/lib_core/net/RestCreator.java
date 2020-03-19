@@ -16,14 +16,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * Package Name: com.codesaid.lib_core.net
  * desc:
  */
-public class RestCreator {
+public final class RestCreator {
 
-
+    /**
+     * 参数容器
+     */
     private static final class ParamsHolder {
-        public static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
+        private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     }
 
-    public static WeakHashMap<String, Object> getParams() {
+    public static WeakHashMap<String, Object> getParams()    {
         return ParamsHolder.PARAMS;
     }
 

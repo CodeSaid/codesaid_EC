@@ -4,10 +4,13 @@ import com.codesaid.lib_core.net.callback.IError;
 import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
+import com.codesaid.lib_core.net.callback.RequestCallbacks;
 
 import java.util.WeakHashMap;
 
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created By codesaid
@@ -43,5 +46,56 @@ public class RestClient {
 
     public static RestClientBuilder builder() {
         return new RestClientBuilder();
+    }
+
+    private void request(HttpMethod method) {
+        final RestService service = RestCreator.getRestService();
+        Call<String> call = null;
+        if (REQUEST != null) {
+            REQUEST.onRequestStart();
+        }
+        switch (method) {
+            case GET:
+                call = service.get(URL, PARAMS);
+                break;
+            case POST:
+                call = service.post(URL, PARAMS);
+                break;
+            case DELETE:
+                call = service.delete(URL, PARAMS);
+                break;
+            case PUT:
+                call = service.put(URL, PARAMS);
+                break;
+            //            case UPLOAD:
+            //                call = service.upload(URL, PARAMS);
+            //break;
+            default:
+                break;
+        }
+
+        if (call != null) {
+            call.enqueue(getRequestCallback());
+        }
+    }
+
+    private Callback<String> getRequestCallback() {
+        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE);
+    }
+
+    public final void get() {
+        request(HttpMethod.GET);
+    }
+
+    public final void post() {
+        request(HttpMethod.POST);
+    }
+
+    public final void put() {
+        request(HttpMethod.PUT);
+    }
+
+    public final void delete() {
+        request(HttpMethod.DELETE);
     }
 }
