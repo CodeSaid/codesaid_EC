@@ -2,9 +2,15 @@ package com.codesaid;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
+import com.codesaid.lib_core.net.RestClient;
+import com.codesaid.lib_core.net.callback.IError;
+import com.codesaid.lib_core.net.callback.IFailure;
+import com.codesaid.lib_core.net.callback.ISuccess;
 
 /**
  * Created By codesaid
@@ -21,6 +27,32 @@ public class MainDelegate extends CodeSaidDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        test();
+    }
 
+    private void test() {
+        RestClient.builder()
+                .url("http://10.0.2.2:8080/data/about.json")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                        Log.e("Success", response);
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+
+                    }
+                })
+                .build()
+                .get();
     }
 }
