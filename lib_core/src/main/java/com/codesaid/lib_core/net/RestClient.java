@@ -1,10 +1,14 @@
 package com.codesaid.lib_core.net;
 
+import android.content.Context;
+
 import com.codesaid.lib_core.net.callback.IError;
 import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
 import com.codesaid.lib_core.net.callback.RequestCallbacks;
+import com.codesaid.lib_core.ui.LoaderStyle;
+import com.codesaid.lib_core.ui.MyLoader;
 
 import java.util.WeakHashMap;
 
@@ -20,6 +24,7 @@ import retrofit2.Callback;
  */
 public class RestClient {
 
+    private final Context CONTEXT;
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final IRequest REQUEST;
@@ -27,14 +32,18 @@ public class RestClient {
     private final IError ERROR;
     private final IFailure FAILURE;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
 
-    public RestClient(String url,
+    public RestClient(Context context,
+                      String url,
                       WeakHashMap<String, Object> params,
                       IRequest request,
                       ISuccess success,
                       IError error,
                       IFailure failure,
-                      RequestBody body) {
+                      RequestBody body,
+                      LoaderStyle loaderStyle) {
+        this.CONTEXT = context;
         this.URL = url;
         PARAMS.putAll(params);
         this.REQUEST = request;
@@ -42,6 +51,7 @@ public class RestClient {
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     public static RestClientBuilder builder() {
@@ -54,6 +64,11 @@ public class RestClient {
         if (REQUEST != null) {
             REQUEST.onRequestStart();
         }
+
+        if (LOADER_STYLE != null) {
+            MyLoader.showLoading(CONTEXT, LOADER_STYLE);
+        }
+
         switch (method) {
             case GET:
                 call = service.get(URL, PARAMS);
@@ -80,7 +95,7 @@ public class RestClient {
     }
 
     private Callback<String> getRequestCallback() {
-        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE);
+        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE, LOADER_STYLE);
     }
 
     public final void get() {

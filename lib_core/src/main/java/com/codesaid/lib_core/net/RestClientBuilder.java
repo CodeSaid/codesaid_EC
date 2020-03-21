@@ -1,9 +1,12 @@
 package com.codesaid.lib_core.net;
 
+import android.content.Context;
+
 import com.codesaid.lib_core.net.callback.IError;
 import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
+import com.codesaid.lib_core.ui.LoaderStyle;
 
 import java.util.WeakHashMap;
 
@@ -18,13 +21,15 @@ import okhttp3.RequestBody;
  */
 public class RestClientBuilder {
 
-    private String mUrl;
+    private Context mContext;
+    private String mUrl = null;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
-    private IRequest mIRequest;
-    private ISuccess mISuccess;
-    private IError mIError;
-    private IFailure mIFailure;
-    private RequestBody mBody;
+    private IRequest mIRequest = null;
+    private ISuccess mISuccess = null;
+    private IError mIError = null;
+    private IFailure mIFailure = null;
+    private RequestBody mBody = null;
+    private LoaderStyle mLoaderStyle = null;
 
     RestClientBuilder() {
     }
@@ -69,7 +74,19 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder loader(Context context, LoaderStyle loaderStyle) {
+        this.mContext = context;
+        this.mLoaderStyle = loaderStyle;
+        return this;
+    }
+
+    public final RestClientBuilder loader(Context context) {
+        this.mContext = context;
+        this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mIRequest, mISuccess, mIError, mIFailure, mBody);
+        return new RestClient(mContext, mUrl, PARAMS, mIRequest, mISuccess, mIError, mIFailure, mBody, mLoaderStyle);
     }
 }

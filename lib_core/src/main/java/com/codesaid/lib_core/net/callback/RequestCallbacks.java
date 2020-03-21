@@ -1,6 +1,11 @@
 package com.codesaid.lib_core.net.callback;
 
+import android.os.Handler;
 import android.util.Log;
+
+import com.codesaid.lib_core.ui.LoaderStyle;
+import com.codesaid.lib_core.ui.MyLoader;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,19 +19,24 @@ import retrofit2.Response;
  */
 public class RequestCallbacks implements Callback<String> {
 
-    private IRequest mIRequest;
-    private ISuccess mISuccess;
-    private IError mIError;
-    private IFailure mIFailure;
+    private final IRequest mIRequest;
+    private final ISuccess mISuccess;
+    private final IError mIError;
+    private final IFailure mIFailure;
+    private final LoaderStyle mLoaderStyle;
+
+    private static final Handler mHandler = new Handler();
 
     public RequestCallbacks(IRequest IRequest,
                             ISuccess ISuccess,
                             IError IError,
-                            IFailure IFailure) {
-        mIRequest = IRequest;
-        mISuccess = ISuccess;
-        mIError = IError;
-        mIFailure = IFailure;
+                            IFailure IFailure,
+                            LoaderStyle loaderStyle) {
+        this.mIRequest = IRequest;
+        this.mISuccess = ISuccess;
+        this.mIError = IError;
+        this.mIFailure = IFailure;
+        this.mLoaderStyle = loaderStyle;
     }
 
 
@@ -36,6 +46,7 @@ public class RequestCallbacks implements Callback<String> {
             if (call.isExecuted()) {
                 if (mISuccess != null) {
                     mISuccess.onSuccess(response.body());
+
                 }
             }
         } else { // 请求失败
@@ -43,17 +54,32 @@ public class RequestCallbacks implements Callback<String> {
                 mIError.onError(response.code(), response.message());
             }
         }
+
+        stopLoading();
     }
 
     @Override
     public void onFailure(Call<String> call, Throwable t) {
         if (mIFailure != null) {
             mIFailure.onFailure();
-            Log.e("TAG",t.getMessage());
+            Log.e("TAG", t.getMessage());
         }
 
         if (mIRequest != null) {
             mIRequest.onRequestEnd();
+        }
+
+        stopLoading();
+    }
+
+    private void stopLoading() {
+        if (mLoaderStyle != null) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    MyLoader.stopLoading();
+                }
+            }, 2000);
         }
     }
 }
