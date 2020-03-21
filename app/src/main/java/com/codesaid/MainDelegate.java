@@ -33,10 +33,11 @@ public class MainDelegate extends CodeSaidDelegate {
     private void test() {
         RestClient.builder()
                 .url("http://10.0.2.2:8080/data/about.json")
+                .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
                         Log.e("Success", response);
                     }
                 })
