@@ -10,8 +10,11 @@ import com.codesaid.lib_core.net.callback.RequestCallbacks;
 import com.codesaid.lib_core.ui.LoaderStyle;
 import com.codesaid.lib_core.ui.MyLoader;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +36,7 @@ public class RestClient {
     private final IFailure FAILURE;
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
+    private final File FILE;
 
     public RestClient(Context context,
                       String url,
@@ -42,7 +46,8 @@ public class RestClient {
                       IError error,
                       IFailure failure,
                       RequestBody body,
-                      LoaderStyle loaderStyle) {
+                      LoaderStyle loaderStyle,
+                      File file) {
         this.CONTEXT = context;
         this.URL = url;
         PARAMS.putAll(params);
@@ -52,6 +57,7 @@ public class RestClient {
         this.FAILURE = failure;
         this.BODY = body;
         this.LOADER_STYLE = loaderStyle;
+        this.FILE = file;
     }
 
     public static RestClientBuilder builder() {
@@ -82,9 +88,19 @@ public class RestClient {
             case PUT:
                 call = service.put(URL, PARAMS);
                 break;
-            //            case UPLOAD:
-            //                call = service.upload(URL, PARAMS);
-            //break;
+            case UPLOAD:
+                final RequestBody requestBody = RequestBody
+                        .create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
+                final MultipartBody.Part part =
+                        MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
+                call = service.upload(URL, part);
+                break;
+            case POST_RAW:
+                call = service.postRaw(URL, BODY);
+                break;
+            case PUT_RAW:
+                call = service.putRaw(URL, BODY);
+                break;
             default:
                 break;
         }
@@ -103,11 +119,25 @@ public class RestClient {
     }
 
     public final void post() {
-        request(HttpMethod.POST);
+        if (BODY == null) {
+            request(HttpMethod.POST);
+        } else {
+            if (!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.POST_RAW);
+        }
     }
 
     public final void put() {
-        request(HttpMethod.PUT);
+        if (BODY == null) {
+            request(HttpMethod.PUT);
+        } else {
+            if (!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be null!");
+            }
+            request(HttpMethod.PUT_RAW);
+        }
     }
 
     public final void delete() {

@@ -8,6 +8,7 @@ import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
 import com.codesaid.lib_core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -30,6 +31,7 @@ public class RestClientBuilder {
     private IFailure mIFailure = null;
     private RequestBody mBody = null;
     private LoaderStyle mLoaderStyle = null;
+    private File file = null;
 
     RestClientBuilder() {
     }
@@ -86,7 +88,18 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder file(File file) {
+        this.file = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String filePath) {
+        this.file = new File(filePath);
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mContext, mUrl, PARAMS, mIRequest, mISuccess, mIError, mIFailure, mBody, mLoaderStyle);
+        return new RestClient(mContext, mUrl, PARAMS, mIRequest,
+                mISuccess, mIError, mIFailure, mBody, mLoaderStyle, file);
     }
 }
