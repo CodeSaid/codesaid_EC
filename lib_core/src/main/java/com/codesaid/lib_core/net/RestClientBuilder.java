@@ -36,16 +36,32 @@ public class RestClientBuilder {
     RestClientBuilder() {
     }
 
+    /**
+     * 请求地址
+     *
+     * @param url 请求地址
+     */
     public final RestClientBuilder url(String url) {
         this.mUrl = url;
         return this;
     }
 
+    /**
+     * 请求参数
+     *
+     * @param params 键值对以 map 形式传递
+     */
     public final RestClientBuilder params(WeakHashMap<String, Object> params) {
         PARAMS.putAll(params);
         return this;
     }
 
+    /**
+     * 请求参数
+     *
+     * @param key   键
+     * @param value 值
+     */
     public final RestClientBuilder params(String key, Object value) {
         PARAMS.put(key, value);
         return this;
@@ -61,38 +77,70 @@ public class RestClientBuilder {
         return this;
     }
 
+    /**
+     * 网络请求 成功 回调
+     */
     public final RestClientBuilder success(ISuccess iSuccess) {
         this.mISuccess = iSuccess;
         return this;
     }
 
+    /**
+     * 网络请求 失败 回调
+     */
     public final RestClientBuilder error(IError iError) {
         this.mIError = iError;
         return this;
     }
 
+    /**
+     * 网络请求 出错 回调
+     *
+     * @param iFailure
+     */
     public final RestClientBuilder failure(IFailure iFailure) {
         this.mIFailure = iFailure;
         return this;
     }
 
+    /**
+     * 发送请求时显示的 loader 样式
+     *
+     * @param context     context
+     * @param loaderStyle loader 样式
+     */
     public final RestClientBuilder loader(Context context, LoaderStyle loaderStyle) {
         this.mContext = context;
         this.mLoaderStyle = loaderStyle;
         return this;
     }
 
+    /**
+     * 发送请求时显示的 默认的 loader 样式
+     *
+     * @param context context
+     */
     public final RestClientBuilder loader(Context context) {
         this.mContext = context;
         this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
         return this;
     }
 
+    /**
+     * 上传文件
+     *
+     * @param file file
+     */
     public final RestClientBuilder file(File file) {
         this.file = file;
         return this;
     }
 
+    /**
+     * 上传文件
+     *
+     * @param filePath file 路径
+     */
     public final RestClientBuilder file(String filePath) {
         this.file = new File(filePath);
         return this;
