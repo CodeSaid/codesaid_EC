@@ -7,6 +7,7 @@ import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
 import com.codesaid.lib_core.net.callback.RequestCallbacks;
+import com.codesaid.lib_core.net.download.DownloadHandler;
 import com.codesaid.lib_core.ui.LoaderStyle;
 import com.codesaid.lib_core.ui.MyLoader;
 
@@ -37,6 +38,9 @@ public class RestClient {
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
     private final File FILE;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
 
     public RestClient(Context context,
                       String url,
@@ -47,7 +51,10 @@ public class RestClient {
                       IFailure failure,
                       RequestBody body,
                       LoaderStyle loaderStyle,
-                      File file) {
+                      File file,
+                      String download_dir,
+                      String extension,
+                      String name) {
         this.CONTEXT = context;
         this.URL = url;
         PARAMS.putAll(params);
@@ -58,6 +65,9 @@ public class RestClient {
         this.BODY = body;
         this.LOADER_STYLE = loaderStyle;
         this.FILE = file;
+        this.DOWNLOAD_DIR = download_dir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
 
     public static RestClientBuilder builder() {
@@ -142,5 +152,14 @@ public class RestClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public final void upload() {
+        request(HttpMethod.UPLOAD);
+    }
+
+    public final void download() {
+        new DownloadHandler(URL, REQUEST, SUCCESS, ERROR, FAILURE, DOWNLOAD_DIR, EXTENSION, NAME)
+                .handleDownload();
     }
 }

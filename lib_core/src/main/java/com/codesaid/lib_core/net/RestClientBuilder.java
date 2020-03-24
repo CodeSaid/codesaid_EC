@@ -32,6 +32,9 @@ public class RestClientBuilder {
     private RequestBody mBody = null;
     private LoaderStyle mLoaderStyle = null;
     private File file = null;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     RestClientBuilder() {
     }
@@ -137,6 +140,36 @@ public class RestClientBuilder {
     }
 
     /**
+     * 下载文件的的文件后缀名
+     *
+     * @param extension 文件后缀名
+     */
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
+    /**
+     * 下载文件时 文件的存放目录
+     *
+     * @param downloadDir 文件的存放目录
+     */
+    public final RestClientBuilder dir(String downloadDir) {
+        this.mDownloadDir = downloadDir;
+        return this;
+    }
+
+    /**
+     * 下载的 文件名
+     *
+     * @param name 文件名
+     */
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    /**
      * 上传文件
      *
      * @param filePath file 路径
@@ -148,6 +181,6 @@ public class RestClientBuilder {
 
     public final RestClient build() {
         return new RestClient(mContext, mUrl, PARAMS, mIRequest,
-                mISuccess, mIError, mIFailure, mBody, mLoaderStyle, file);
+                mISuccess, mIError, mIFailure, mBody, mLoaderStyle, file, mDownloadDir, mExtension, mName);
     }
 }
