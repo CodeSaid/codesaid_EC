@@ -3,6 +3,7 @@ package com.codesaid;
 import android.app.Application;
 
 import com.codesaid.lib_core.app.CodeSaid;
+import com.codesaid.lib_core.net.interceptors.DebugInterceptor;
 import com.codesaid.lib_ec.icon.MyFontModel;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -21,7 +22,9 @@ public class MyApplication extends Application {
         CodeSaid.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new MyFontModel())
+                .withLoaderDelayed(1000)
                 .withApiHost("http://127.0.0.1/")
+                .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
     }
 }

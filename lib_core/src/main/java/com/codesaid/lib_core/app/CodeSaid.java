@@ -13,7 +13,10 @@ import java.util.HashMap;
 public final class CodeSaid {
 
     public static Configurator init(Context context) {
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
+        Configurator
+                .getInstance()
+                .getCodesaidConfigs()
+                .put(ConfigType.APPLICATION_CONTEXT, context.getApplicationContext());
         return Configurator.getInstance();
     }
 
@@ -30,6 +33,6 @@ public final class CodeSaid {
     }
 
     public static Context getApplication() {
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT);
     }
 }
