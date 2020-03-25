@@ -3,9 +3,11 @@ package com.codesaid.lib_core.net;
 import com.codesaid.lib_core.app.CodeSaid;
 import com.codesaid.lib_core.app.ConfigType;
 
+import java.util.ArrayList;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -25,7 +27,7 @@ public final class RestCreator {
         private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     }
 
-    public static WeakHashMap<String, Object> getParams()    {
+    public static WeakHashMap<String, Object> getParams() {
         return ParamsHolder.PARAMS;
     }
 
@@ -55,9 +57,22 @@ public final class RestCreator {
     private static final class OKHttpHolder {
         private static final int TIME_OUT = 60;
 
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+
+        private static final ArrayList<Interceptor> INTERCEPTORS =
+                CodeSaid.getConfiguration(ConfigType.INTERCEPTOR);
+
+        private static OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()) {
+                for (Interceptor interceptor : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+
         private static final OkHttpClient OK_HTTP_CLIENT =
-                new OkHttpClient
-                        .Builder()
+                addInterceptor()
                         .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                         .build();
 

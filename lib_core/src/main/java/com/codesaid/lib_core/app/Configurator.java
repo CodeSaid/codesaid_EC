@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Interceptor;
+
 /**
  * Created By codesaid
  * On :2020-03-15 20:52
@@ -16,9 +18,11 @@ import java.util.List;
 public class Configurator {
 
     @SuppressWarnings("SpellCheckingInspection")
-    private static final HashMap<String, Object> CODESAID_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> CODESAID_CONFIGS = new HashMap<>();
 
-    private static final List<IconFontDescriptor> ICONS = new ArrayList();
+    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList();
+
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         // 表示开始配置
@@ -34,7 +38,7 @@ public class Configurator {
         return Holder.INSTANCE;
     }
 
-    final HashMap<String, Object> getCodesaidConfigs() {
+    final HashMap<Object, Object> getCodesaidConfigs() {
         return CODESAID_CONFIGS;
     }
 
@@ -79,6 +83,18 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        CODESAID_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(List<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        CODESAID_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+
     private void checkConfiguration() {
         final boolean isReady = (boolean) CODESAID_CONFIGS.get(ConfigType.CONFIG_READY.name());
         if (!isReady) {
@@ -87,8 +103,12 @@ public class Configurator {
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getConfiguration(Enum<ConfigType> key) {
+    final <T> T getConfiguration(Object key) {
         checkConfiguration();
-        return (T) CODESAID_CONFIGS.get(key.name());
+        final Object value = CODESAID_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
+        return (T) CODESAID_CONFIGS.get(key);
     }
 }
