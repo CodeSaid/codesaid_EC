@@ -83,15 +83,15 @@ public class Configurator {
         return this;
     }
 
-//    /**
-//     * 添加 loader 延迟
-//     *
-//     * @param delayed 秒
-//     */
-//    public final Configurator withLoaderDelayed(long delayed) {
-//        CODESAID_CONFIGS.put(ConfigType.LOADER_DELAYED, delayed);
-//        return this;
-//    }
+    /**
+     * 添加 loader 延迟
+     *
+     * @param delayed 秒
+     */
+    public final Configurator withLoaderDelayed(long delayed) {
+        CODESAID_CONFIGS.put(ConfigType.LOADER_DELAYED, delayed);
+        return this;
+    }
 
     public final Configurator withInterceptor(Interceptor interceptor) {
         INTERCEPTORS.add(interceptor);
