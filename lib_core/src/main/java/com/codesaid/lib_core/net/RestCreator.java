@@ -2,6 +2,7 @@ package com.codesaid.lib_core.net;
 
 import com.codesaid.lib_core.app.CodeSaid;
 import com.codesaid.lib_core.app.ConfigType;
+import com.codesaid.lib_core.net.rx.RxRestService;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -35,6 +37,10 @@ public final class RestCreator {
         return RestServiceHolder.REST_SERVICE;
     }
 
+    public static RxRestService getRxRestService() {
+        return RxRestServiceHolder.RX_REST_SERVICE;
+    }
+
     /**
      * 初始化 Retrofit
      */
@@ -48,6 +54,7 @@ public final class RestCreator {
                         .baseUrl(BASE_URL)
                         .client(OKHttpHolder.OK_HTTP_CLIENT)
                         .addConverterFactory(ScalarsConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
     }
 
@@ -81,6 +88,12 @@ public final class RestCreator {
     private static final class RestServiceHolder {
         private static final RestService REST_SERVICE =
                 RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
+
+    }
+
+    private static final class RxRestServiceHolder {
+        private static final RxRestService RX_REST_SERVICE =
+                RetrofitHolder.RETROFIT_CLIENT.create(RxRestService.class);
 
     }
 }
