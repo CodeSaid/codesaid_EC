@@ -57,7 +57,7 @@ dependencies {
     api 'com.alibaba:fastjson:1.2.31'
 
     // banner 依赖
-    api 'com.bigkoo:convenientbanner:2.1.5'
+    api 'com.bigkoo:convenientbanner:2.0.5'
     //  3D ViewPager
     api 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
 
