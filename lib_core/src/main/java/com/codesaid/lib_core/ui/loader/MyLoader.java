@@ -1,4 +1,4 @@
-package com.codesaid.lib_core.ui;
+package com.codesaid.lib_core.ui.loader;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatDialog;
@@ -47,14 +47,14 @@ public class MyLoader {
 
         dialog.setContentView(avLoadingIndicatorView);
 
-        int deviceWindth = DimenUtil.getScreenWidth();
+        int screenWidth = DimenUtil.getScreenWidth();
         int deviceHeight = DimenUtil.getScreenHeight();
 
         final Window window = dialog.getWindow();
 
         if (window != null) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.width = deviceWindth / LOADER_SIZE_SCALE;
+            layoutParams.width = screenWidth / LOADER_SIZE_SCALE;
             layoutParams.height = deviceHeight / LOADER_SIZE_SCALE;
             layoutParams.height = layoutParams.height + deviceHeight / LOADER_OFFSET_SCALE;
             layoutParams.gravity = Gravity.CENTER;

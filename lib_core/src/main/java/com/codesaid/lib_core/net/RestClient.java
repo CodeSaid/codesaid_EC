@@ -8,8 +8,8 @@ import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
 import com.codesaid.lib_core.net.callback.RequestCallbacks;
 import com.codesaid.lib_core.net.download.DownloadHandler;
-import com.codesaid.lib_core.ui.LoaderStyle;
-import com.codesaid.lib_core.ui.MyLoader;
+import com.codesaid.lib_core.ui.loader.LoaderStyle;
+import com.codesaid.lib_core.ui.loader.MyLoader;
 
 import java.io.File;
 import java.util.WeakHashMap;

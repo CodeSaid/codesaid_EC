@@ -3,7 +3,7 @@ package com.codesaid.lib_core.net.rx;
 import android.content.Context;
 
 import com.codesaid.lib_core.net.RestCreator;
-import com.codesaid.lib_core.ui.LoaderStyle;
+import com.codesaid.lib_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;

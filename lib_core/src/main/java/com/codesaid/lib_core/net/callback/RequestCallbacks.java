@@ -3,8 +3,8 @@ package com.codesaid.lib_core.net.callback;
 import android.os.Handler;
 import android.util.Log;
 
-import com.codesaid.lib_core.ui.LoaderStyle;
-import com.codesaid.lib_core.ui.MyLoader;
+import com.codesaid.lib_core.ui.loader.LoaderStyle;
+import com.codesaid.lib_core.ui.loader.MyLoader;
 
 
 import retrofit2.Call;

@@ -6,7 +6,7 @@ import com.codesaid.lib_core.net.callback.IError;
 import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.IRequest;
 import com.codesaid.lib_core.net.callback.ISuccess;
-import com.codesaid.lib_core.ui.LoaderStyle;
+import com.codesaid.lib_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.WeakHashMap;

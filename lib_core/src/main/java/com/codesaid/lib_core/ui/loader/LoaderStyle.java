@@ -1,4 +1,4 @@
-package com.codesaid.lib_core.ui;
+package com.codesaid.lib_core.ui.loader;
 
 /**
  * Created By codesaid

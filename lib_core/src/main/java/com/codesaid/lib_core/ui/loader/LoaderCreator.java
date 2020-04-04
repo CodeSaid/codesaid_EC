@@ -1,4 +1,4 @@
-package com.codesaid.lib_core.ui;
+package com.codesaid.lib_core.ui.loader;
 
 import android.content.Context;
 import android.text.TextUtils;

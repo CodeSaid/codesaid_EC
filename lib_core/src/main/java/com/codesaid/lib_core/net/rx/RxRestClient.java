@@ -3,17 +3,9 @@ package com.codesaid.lib_core.net.rx;
 import android.content.Context;
 
 import com.codesaid.lib_core.net.HttpMethod;
-import com.codesaid.lib_core.net.RestClientBuilder;
 import com.codesaid.lib_core.net.RestCreator;
-import com.codesaid.lib_core.net.RestService;
-import com.codesaid.lib_core.net.callback.IError;
-import com.codesaid.lib_core.net.callback.IFailure;
-import com.codesaid.lib_core.net.callback.IRequest;
-import com.codesaid.lib_core.net.callback.ISuccess;
-import com.codesaid.lib_core.net.callback.RequestCallbacks;
-import com.codesaid.lib_core.net.download.DownloadHandler;
-import com.codesaid.lib_core.ui.LoaderStyle;
-import com.codesaid.lib_core.ui.MyLoader;
+import com.codesaid.lib_core.ui.loader.LoaderStyle;
+import com.codesaid.lib_core.ui.loader.MyLoader;
 
 import java.io.File;
 import java.util.WeakHashMap;
@@ -23,8 +15,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 /**
  * Created By codesaid
