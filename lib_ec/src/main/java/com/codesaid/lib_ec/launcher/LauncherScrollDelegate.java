@@ -8,6 +8,8 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
 import com.codesaid.lib_core.ui.launcher.LauncherHolderCreator;
+import com.codesaid.lib_core.ui.launcher.ScrollLauncherTag;
+import com.codesaid.lib_core.utils.storage.CodeSaidPreference;
 import com.codesaid.lib_ec.R;
 
 import java.util.ArrayList;
@@ -36,7 +38,12 @@ public class LauncherScrollDelegate extends CodeSaidDelegate {
                 .setOnItemClickListener(new OnItemClickListener() { // 点击事件
                     @Override
                     public void onItemClick(int position) {
+                        // 点击的是最后一个
+                        if (position == INTEGERS.size() - 1) {
+                            CodeSaidPreference.setAppFlag(ScrollLauncherTag.HAS_FIRST__LAUNCHER_APP.name(), true);
+                            // TODO 检查用户是否已经登录
 
+                        }
                     }
                 })
                 .setCanLoop(false); // 是否可以循环

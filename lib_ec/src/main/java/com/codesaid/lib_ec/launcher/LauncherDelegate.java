@@ -6,6 +6,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
+import com.codesaid.lib_core.ui.launcher.ScrollLauncherTag;
+import com.codesaid.lib_core.utils.storage.CodeSaidPreference;
 import com.codesaid.lib_core.utils.timer.BaseTimerTask;
 import com.codesaid.lib_core.utils.timer.ITimerListener;
 import com.codesaid.lib_ec.R;
@@ -31,7 +33,11 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView() {
-
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+            checkIsShowScroll();
+        }
     }
 
     private Timer mTimer = null;
@@ -53,6 +59,18 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
         initTimer();
     }
 
+    /**
+     * 判断用户是否第一次进入 APP
+     */
+    private void checkIsShowScroll() {
+        if (!CodeSaidPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST__LAUNCHER_APP.name())) {
+            start(new LauncherScrollDelegate(), SINGLETASK);
+        } else {
+            // TODO 检查用户是否登录
+
+        }
+    }
+
     @Override
     public void onTimer() {
         getProxyActivity().runOnUiThread(new Runnable() {
@@ -65,6 +83,7 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
                         if (mTimer != null) {
                             mTimer.cancel();
                             mTimer = null;
+                            checkIsShowScroll();
                         }
                     }
                 }
