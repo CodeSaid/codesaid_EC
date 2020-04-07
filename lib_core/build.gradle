@@ -28,8 +28,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
+    //Android Support包
     api 'com.android.support:appcompat-v7:28.0.0'
     api 'com.android.support:support-v4:28.0.0'
+    api 'com.android.support:design:28.0.0'
+    api 'com.android.support:cardview-v7:28.0.0'
+    api 'com.android.support:multidex:1.0.1'
     api "com.android.support.constraint:constraint-layout:1.1.1"
 
     //字体图标
