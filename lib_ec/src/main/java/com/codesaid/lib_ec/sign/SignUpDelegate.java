@@ -12,6 +12,7 @@ import com.codesaid.lib_core.net.RestClient;
 import com.codesaid.lib_core.net.callback.IError;
 import com.codesaid.lib_core.net.callback.IFailure;
 import com.codesaid.lib_core.net.callback.ISuccess;
+import com.codesaid.lib_core.utils.log.MyLogger;
 import com.codesaid.lib_ec.R;
 import com.codesaid.lib_ec.R2;
 
@@ -40,29 +41,32 @@ public class SignUpDelegate extends CodeSaidDelegate {
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
-            //            RestClient.builder()
-            //                    .url("sign_up")
-            //                    .params("", "")
-            //                    .success(new ISuccess() {
-            //                        @Override
-            //                        public void onSuccess(String response) {
-            //
-            //                        }
-            //                    })
-            //                    .error(new IError() {
-            //                        @Override
-            //                        public void onError(int code, String msg) {
-            //
-            //                        }
-            //                    })
-            //                    .failure(new IFailure() {
-            //                        @Override
-            //                        public void onFailure() {
-            //
-            //                        }
-            //                    })
-            //                    .build()
-            //                    .post();
+            RestClient.builder()
+                    .url("http://192.168.56.1:8080/RestDataServer/api/user_profile.php")
+                    .params("name", mName.getText().toString())
+                    .params("email", mEmail.getText().toString())
+                    .params("phone", mPhone.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            MyLogger.json("USER_SIGN_UP", response);
+                        }
+                    })
+                    .error(new IError() {
+                        @Override
+                        public void onError(int code, String msg) {
+
+                        }
+                    })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    })
+                    .build()
+                    .post();
 
             Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
