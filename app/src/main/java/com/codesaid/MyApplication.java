@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.codesaid.lib_core.app.CodeSaid;
 import com.codesaid.lib_core.net.interceptors.DebugInterceptor;
+import com.codesaid.lib_ec.database.DatabaseManager;
 import com.codesaid.lib_ec.icon.MyFontModel;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -26,5 +27,8 @@ public class MyApplication extends Application {
                 .withApiHost("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
+
+        // 初始化 数据库
+        DatabaseManager.getInstance().init(this);
     }
 }

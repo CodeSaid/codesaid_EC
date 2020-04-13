@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 
 import com.codesaid.lib_core.activitys.ProxyActivity;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
-import com.codesaid.lib_ec.launcher.LauncherDelegate;
+import com.codesaid.lib_ec.sign.SignUpDelegate;
 
 public class MainActivity extends ProxyActivity {
 
@@ -21,6 +21,6 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public CodeSaidDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new SignUpDelegate();
     }
 }

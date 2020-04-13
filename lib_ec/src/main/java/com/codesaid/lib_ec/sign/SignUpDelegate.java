@@ -42,7 +42,7 @@ public class SignUpDelegate extends CodeSaidDelegate {
     void onClickSignUp() {
         if (checkForm()) {
             RestClient.builder()
-                    .url("http://192.168.56.1:8080/RestDataServer/api/user_profile.php")
+                    .url("http://10.0.2.2:8080/data/user_profile.json")
                     .params("name", mName.getText().toString())
                     .params("email", mEmail.getText().toString())
                     .params("phone", mPhone.getText().toString())
@@ -51,6 +51,8 @@ public class SignUpDelegate extends CodeSaidDelegate {
                         @Override
                         public void onSuccess(String response) {
                             MyLogger.json("USER_SIGN_UP", response);
+                            // 保存用户信息到数据库
+                            SignHandler.onSignUp(response);
                         }
                     })
                     .error(new IError() {
