@@ -1,5 +1,6 @@
 package com.codesaid.lib_ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -38,6 +39,16 @@ public class SignUpDelegate extends CodeSaidDelegate {
     @BindView(R2.id.edit_sign_up_re_password)
     TextInputEditText mRePassword = null;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
@@ -52,7 +63,7 @@ public class SignUpDelegate extends CodeSaidDelegate {
                         public void onSuccess(String response) {
                             MyLogger.json("USER_SIGN_UP", response);
                             // 保存用户信息到数据库
-                            SignHandler.onSignUp(response);
+                            SignHandler.onSignUp(response,mISignListener);
                         }
                     })
                     .error(new IError() {
