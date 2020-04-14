@@ -1,5 +1,6 @@
 package com.codesaid.lib_ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -7,6 +8,8 @@ import android.util.Patterns;
 import android.view.View;
 
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
+import com.codesaid.lib_core.net.RestClient;
+import com.codesaid.lib_core.net.callback.ISuccess;
 import com.codesaid.lib_ec.R;
 import com.codesaid.lib_ec.R2;
 
@@ -26,10 +29,31 @@ public class SignInDelegate extends CodeSaidDelegate {
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-
+            RestClient.builder()
+                    .url("http://10.0.2.2:8080/data/user_profile.json")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            SignHandler.onSignIn(response, mISignListener);
+                        }
+                    })
+                    .build()
+                    .post();
         }
     }
 

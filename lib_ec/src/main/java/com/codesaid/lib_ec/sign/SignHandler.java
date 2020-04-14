@@ -14,6 +14,22 @@ import com.codesaid.lib_ec.database.UserProfile;
  */
 public class SignHandler {
 
+    public static void onSignIn(String response,ISignListener listener) {
+        final JSONObject profileJson = JSON.parseObject(response).getJSONObject("data");
+        final long userId = profileJson.getLong("userId");
+        final String name = profileJson.getString("name");
+        final String avatar = profileJson.getString("avatar");
+        final String gender = profileJson.getString("gender");
+        final String address = profileJson.getString("address");
+
+        final UserProfile profile = new UserProfile(userId, name, avatar, gender, address);
+        DatabaseManager.getInstance().getDao().insert(profile);
+
+        // 保存用户状态
+        AccountManager.setSignState(true);
+        listener.onSignInSuccess();
+    }
+
     public static void onSignUp(String response,ISignListener listener) {
         final JSONObject profileJson = JSON.parseObject(response).getJSONObject("data");
         final long userId = profileJson.getLong("userId");

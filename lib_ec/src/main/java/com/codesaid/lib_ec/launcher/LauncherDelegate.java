@@ -1,11 +1,16 @@
 package com.codesaid.lib_ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.codesaid.lib_core.app.AccountManager;
+import com.codesaid.lib_core.app.IUserChecker;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
+import com.codesaid.lib_core.ui.launcher.ILauncherListener;
+import com.codesaid.lib_core.ui.launcher.OnLauncherFinishTag;
 import com.codesaid.lib_core.ui.launcher.ScrollLauncherTag;
 import com.codesaid.lib_core.utils.storage.CodeSaidPreference;
 import com.codesaid.lib_core.utils.timer.BaseTimerTask;
@@ -30,6 +35,8 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
 
     @BindView(R2.id.tv_launcher_timer)
     AppCompatTextView mTvTimer = null;
+
+    private ILauncherListener mILauncherListener = null;
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView() {
@@ -59,6 +66,14 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
         initTimer();
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
+
     /**
      * 判断用户是否第一次进入 APP
      */
@@ -67,7 +82,21 @@ public class LauncherDelegate extends CodeSaidDelegate implements ITimerListener
             start(new LauncherScrollDelegate(), SINGLETASK);
         } else {
             // TODO 检查用户是否登录
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
 
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 
