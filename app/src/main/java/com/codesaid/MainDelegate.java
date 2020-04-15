@@ -41,7 +41,7 @@ public class MainDelegate extends CodeSaidDelegate {
 
     private void test() {
         RestClient.builder()
-                .url("http://127.0.0.1/index")
+                .url("http://10.0.2.2:8080/index.json")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
