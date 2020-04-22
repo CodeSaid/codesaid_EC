@@ -1,5 +1,7 @@
 package com.codesaid.lib_core.app;
 
+import android.app.Activity;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -102,6 +104,21 @@ public class Configurator {
     public final Configurator withInterceptors(List<Interceptor> interceptors) {
         INTERCEPTORS.addAll(interceptors);
         CODESAID_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withWeChatAppId(String appId) {
+        CODESAID_CONFIGS.put(ConfigType.WE_CHAT_APP_ID, appId);
+        return this;
+    }
+
+    public final Configurator withWeChatAppSecret(String appSecret) {
+        CODESAID_CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET, appSecret);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity) {
+        CODESAID_CONFIGS.put(ConfigType.ACTIVITY, activity);
         return this;
     }
 

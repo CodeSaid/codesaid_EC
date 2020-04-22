@@ -13,5 +13,8 @@ public enum ConfigType {
     CONFIG_READY,
     ICON,
     LOADER_DELAYED,
-    INTERCEPTOR
+    INTERCEPTOR,
+    WE_CHAT_APP_ID,
+    WE_CHAT_APP_SECRET,
+    ACTIVITY
 }
