@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
 import com.codesaid.lib_core.activitys.ProxyActivity;
+import com.codesaid.lib_core.app.CodeSaid;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
 import com.codesaid.lib_core.ui.launcher.ILauncherListener;
 import com.codesaid.lib_core.ui.launcher.OnLauncherFinishTag;
@@ -22,6 +23,8 @@ public class MainActivity extends ProxyActivity implements ILauncherListener, IS
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        CodeSaid.getConfigurator().withActivity(this);
     }
 
     @Override

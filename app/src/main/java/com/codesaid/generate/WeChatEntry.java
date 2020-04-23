@@ -1,7 +1,7 @@
 package com.codesaid.generate;
 
 import com.codesaid.lib_annotations.EntryGenerator;
-import com.codesaid.lib_core.wechat.WXEntryTemplate;
+import com.codesaid.lib_core.wechat.templates.WXEntryTemplate;
 
 /**
  * Created By codesaid

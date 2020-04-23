@@ -1,7 +1,7 @@
 package com.codesaid.generate;
 
 import com.codesaid.lib_annotations.AppRegisterGenerator;
-import com.codesaid.lib_core.wechat.AppRegisterTemplate;
+import com.codesaid.lib_core.wechat.templates.AppRegisterTemplate;
 
 /**
  * Created By codesaid

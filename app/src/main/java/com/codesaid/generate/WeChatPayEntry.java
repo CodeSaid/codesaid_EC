@@ -1,7 +1,7 @@
 package com.codesaid.generate;
 
 import com.codesaid.lib_annotations.PayEntryGenerator;
-import com.codesaid.lib_core.wechat.WXPayEntryTemplate;
+import com.codesaid.lib_core.wechat.templates.WXPayEntryTemplate;
 
 /**
  * Created By codesaid
