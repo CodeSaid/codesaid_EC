@@ -1,4 +1,4 @@
-package com.codesaid.lib_core.wechat;
+package com.codesaid.lib_core.wechat.templates;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,6 +17,6 @@ public class AppRegisterTemplate extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        
+
     }
 }

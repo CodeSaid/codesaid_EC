@@ -14,4 +14,6 @@ public abstract class BaseWXEntryActivity extends BaseWXActivity {
      * @param userInfo 用户信息
      */
     protected abstract void onSignInSuccess(String userInfo);
+
+    
 }

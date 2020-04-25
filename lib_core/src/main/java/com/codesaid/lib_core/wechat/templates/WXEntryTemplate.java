@@ -1,4 +1,4 @@
-package com.codesaid.lib_core.wechat;
+package com.codesaid.lib_core.wechat.templates;
 
 import com.codesaid.lib_core.activitys.ProxyActivity;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
@@ -9,7 +9,7 @@ import com.codesaid.lib_core.delegates.CodeSaidDelegate;
  * Package Name: com.codesaid.lib_core.wechat
  * desc:
  */
-public class WXPayEntryTemplate extends ProxyActivity {
+public class WXEntryTemplate extends ProxyActivity {
 
     @Override
     public CodeSaidDelegate setRootDelegate() {
