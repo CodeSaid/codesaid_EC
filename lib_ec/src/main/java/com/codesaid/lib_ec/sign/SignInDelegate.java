@@ -10,6 +10,8 @@ import android.view.View;
 import com.codesaid.lib_core.delegates.CodeSaidDelegate;
 import com.codesaid.lib_core.net.RestClient;
 import com.codesaid.lib_core.net.callback.ISuccess;
+import com.codesaid.lib_core.wechat.MyWeChat;
+import com.codesaid.lib_core.wechat.callbacks.IWeChatSignInCallback;
 import com.codesaid.lib_ec.R;
 import com.codesaid.lib_ec.R2;
 
@@ -57,9 +59,17 @@ public class SignInDelegate extends CodeSaidDelegate {
         }
     }
 
+    /**
+     * 微信登录
+     */
     @OnClick(R2.id.icon_sign_in_wechat)
     void onClickWeChat() {
+        MyWeChat.getInstance().onSignSuccess(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
 
+            }
+        }).signIn();
     }
 
     @OnClick(R2.id.tv_link_sign_up)
