@@ -1,6 +1,7 @@
 package com.codesaid.lib_core.app;
 
 import android.app.Activity;
+import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -26,9 +27,12 @@ public class Configurator {
 
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
+    private static final Handler HANDLER = new Handler();
+
     private Configurator() {
         // 表示开始配置
         CODESAID_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
+        CODESAID_CONFIGS.put(ConfigType.HANDLER, HANDLER);
     }
 
     private static class Holder {

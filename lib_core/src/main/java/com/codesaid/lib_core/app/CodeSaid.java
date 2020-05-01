@@ -1,6 +1,7 @@
 package com.codesaid.lib_core.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.util.HashMap;
 
@@ -30,6 +31,10 @@ public final class CodeSaid {
 
     public static <T> T getConfiguration(Object key) {
         return getConfigurator().getConfiguration(key);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigType.HANDLER);
     }
 
     public static Context getApplication() {
