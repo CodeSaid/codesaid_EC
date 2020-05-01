@@ -11,6 +11,7 @@ import com.codesaid.lib_core.delegates.CodeSaidDelegate;
 import com.codesaid.lib_core.ui.launcher.ILauncherListener;
 import com.codesaid.lib_core.ui.launcher.OnLauncherFinishTag;
 import com.codesaid.lib_ec.launcher.LauncherDelegate;
+import com.codesaid.lib_ec.main.EcBottomDelegate;
 import com.codesaid.lib_ec.sign.ISignListener;
 import com.codesaid.lib_ec.sign.SignInDelegate;
 
@@ -47,7 +48,7 @@ public class MainActivity extends ProxyActivity implements ILauncherListener, IS
         switch (tag) {
             case SIGNED:
                 Toast.makeText(this, "启动结束，用户登录", Toast.LENGTH_SHORT).show();
-                startWithPop(new MainDelegate());
+                startWithPop(new EcBottomDelegate());
                 break;
             case NOT_SIGNED:
                 Toast.makeText(this, "启动结束，用户未登录", Toast.LENGTH_SHORT).show();
