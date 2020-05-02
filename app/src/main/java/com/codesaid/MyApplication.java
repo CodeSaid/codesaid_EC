@@ -24,10 +24,10 @@ public class MyApplication extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new MyFontModel())
                 .withLoaderDelayed(1000)
-                .withApiHost("http://10.0.2.2:8080/")
-                .withInterceptor(new DebugInterceptor("index", R.raw.test))
-                .withWeChatAppId("你的微信AppKey")
-                .withWeChatAppSecret("你的微信AppSecret")
+                .withApiHost("http://10.0.2.2:8080/data/")
+                .withInterceptor(new DebugInterceptor("test", R.raw.test))
+                //.withWeChatAppId("你的微信AppKey")
+                //.withWeChatAppSecret("你的微信AppSecret")
                 .configure();
 
         // 初始化 数据库
