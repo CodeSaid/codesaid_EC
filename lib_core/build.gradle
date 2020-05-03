@@ -27,7 +27,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
     //Android Support包
     api 'com.android.support:appcompat-v7:28.0.0'
     api 'com.android.support:support-v4:28.0.0'
@@ -78,7 +77,6 @@ dependencies {
 
     //微信依赖（包含统计）
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
 
     implementation project(':lib-annotations')
 }
